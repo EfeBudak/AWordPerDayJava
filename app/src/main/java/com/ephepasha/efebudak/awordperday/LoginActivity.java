@@ -22,8 +22,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private FirebaseAuth firebaseAuth;
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private Button buttonSignIn;
-    private Button buttonSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +85,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
-
-                        // ...
                     }
                 });
     }
@@ -113,8 +109,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
-
-                        // ...
                     }
                 });
     }
