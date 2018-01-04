@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -62,7 +61,38 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    private void updateUI(FirebaseUser firebaseUser) {
+    private void updateUI(final FirebaseUser firebaseUser) {
+        if (firebaseUser != null) {
+            if (!firebaseUser.isEmailVerified()) {
+                firebaseUser.sendEmailVerification()
+                        .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                // Re-enable button
+                                //findViewById(R.id.verify_email_button).setEnabled(true);
+
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getApplicationContext(),
+                                            "Verification email sent to " + firebaseUser.getEmail(),
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Log.e(TAG, "sendEmailVerification", task.getException());
+                                    Toast.makeText(getApplicationContext(),
+                                            "Failed to send verification email.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
+        }
+
+        Toast.makeText(
+                getApplicationContext(),
+                "Email is verified: "
+                        + (firebaseUser == null
+                        ? "NOPE"
+                        : firebaseUser.isEmailVerified()),
+                Toast.LENGTH_SHORT).show();
 
     }
 
