@@ -68,13 +68,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                // Re-enable button
-                                //findViewById(R.id.verify_email_button).setEnabled(true);
 
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getApplicationContext(),
                                             "Verification email sent to " + firebaseUser.getEmail(),
                                             Toast.LENGTH_SHORT).show();
+                                    Log.d("Verification", "Verification email sent to " + firebaseUser.getEmail());
                                 } else {
                                     Log.e(TAG, "sendEmailVerification", task.getException());
                                     Toast.makeText(getApplicationContext(),
